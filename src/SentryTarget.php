@@ -28,19 +28,22 @@ class SentryTarget extends Target
     public $dsn = '';
 
     /**
-     * @var Raven_Client client for working with sentry
+     * @var array options to pass to \Raven_Client constructor
+     */
+    public $options = [];
+
+    /**
+     * @var \Raven_Client client for working with sentry
      */
     protected $client = null;
 
     /**
-     * Initializes the DbTarget component.
-     * This method will initialize the [[db]] property to make sure it refers to a valid DB connection.
-     * @throws InvalidConfigException if [[db]] is invalid.
+     * Initializes the SentryTarget log target.
      */
     public function init()
     {
         parent::init();
-        $this->client = new \Raven_Client($this->dsn);
+        $this->client = new \Raven_Client($this->dsn, $this->options);
     }
 
     /**
